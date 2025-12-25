@@ -5,7 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-// ✅ mock data
 const users = [
   { id: 1, name: "Jay", phone: "0990190339" },
   { id: 2, name: "John", phone: "0812345678" },
@@ -19,7 +18,6 @@ app.get("/users", (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 2;
 
-  // ✅ validate
   if (page < 1) {
     return res.status(400).json({ message: "page must be >= 1" });
   }
@@ -28,7 +26,6 @@ app.get("/users", (req, res) => {
     return res.status(400).json({ message: "limit must be >= 1" });
   }
 
-  // 🔍 search
   const filteredUsers = users.filter(u =>
     u.name.toLowerCase().includes(search.toLowerCase()) ||
     u.phone.includes(search)
@@ -36,12 +33,11 @@ app.get("/users", (req, res) => {
 
   const totalPage = Math.ceil(filteredUsers.length / limit);
 
-  // ❗ page เกิน
+
   if (page > totalPage && totalPage > 0) {
     return res.status(404).json({ message: "page not found" });
   }
 
-  // 📄 pagination
   const startIndex = (page - 1) * limit;
   const paginatedUsers = filteredUsers.slice(
     startIndex,

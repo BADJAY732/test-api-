@@ -1,14 +1,9 @@
--- ===============================
--- ใช้ฐานข้อมูล
--- ===============================
 CREATE DATABASE IF NOT EXISTS user_api;
 USE user_api;
 
 DROP TABLE IF EXISTS expenses;
 
--- ===============================
--- สร้างตาราง expenses
--- ===============================
+
 CREATE TABLE expenses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     expense_date DATE NOT NULL,
